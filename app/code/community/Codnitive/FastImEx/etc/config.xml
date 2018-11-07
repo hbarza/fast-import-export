@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * CODNITIVE
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE_EULA.html.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.codnitive.com/en/terms-of-service-softwares/
+ * http://www.codnitive.com/fa/terms-of-service-softwares/
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade to newer
+ * versions in the future.
+ *
+ * @category   Codnitive
+ * @package    Codnitive_FastImEx
+ * @author     Hassan Barza <support@codnitive.com>
+ * @copyright  Copyright (c) 2012 CODNITIVE Co. (http://www.codnitive.com)
+ * @license    http://www.codnitive.com/en/terms-of-service-softwares/ End User License Agreement (EULA 1.0)
+ */
+-->
+
+<config>
+    <modules>
+        <Codnitive_FastImEx>
+            <version>1.0.78</version>
+            <title>Fast Import Export</title>
+            <link><![CDATA[http://www.codnitive.com/]]></link>
+            <codPool>community</codPool>
+        </Codnitive_FastImEx>
+    </modules>
+    <global>
+        <helpers>
+            <fastimex>
+                <class>Codnitive_FastImEx_Helper</class>
+            </fastimex>
+        </helpers>
+        <models>
+            <fastimex>
+                <class>Codnitive_FastImEx_Model</class>
+                <resourceModel>fastimex_resource</resourceModel>
+            </fastimex>
+            <fastimex_resource>
+                <class>Codnitive_FastImEx_Model_Resource</class>
+            </fastimex_resource>
+            <importexport>
+                <rewrite>
+                    <export_entity_product>Codnitive_FastImEx_Model_Export_Entity_Product</export_entity_product>
+                </rewrite>
+            </importexport>
+        </models>
+        <resources>
+            <fastimex_setup>
+                <setup>
+                    <module>Codnitive_FastImEx</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </fastimex_setup>
+            <fastimex_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </fastimex_write>
+            <fastimex_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </fastimex_read>
+        </resources>
+        <events>
+            <fastimex_entity_product_before_import>
+                <observers>
+                    <fastimex_import_media>
+                        <class>fastimex/observer</class>
+                        <method>importMedia</method>
+                        <type>singleton</type>
+                    </fastimex_import_media>
+                </observers>
+            </fastimex_entity_product_before_import>
+            <fastimex_entity_product_after_import>
+                <observers>
+                    <fastimex_index_products>
+                        <class>fastimex/observer</class>
+                        <method>indexProducts</method>
+                        <type>singleton</type>
+                    </fastimex_index_products>
+                </observers>
+            </fastimex_entity_product_after_import>
+        </events>
+        <fastimex>
+            <import_entities>
+                <catalog_product>
+                    <model_token>fastimex/import_entity_product</model_token>
+                    <label>Products</label>
+                </catalog_product>
+            </import_entities>
+        </fastimex>
+        <importexport>
+            <import_product_types>
+                <bundle>fastimex/import_entity_product_type_bundle</bundle>
+                <grouped>fastimex/import_entity_product_type_grouped</grouped>
+            </import_product_types>
+        </importexport>
+    </global>
+    
+    <admin>
+        <routers>
+            <fastimex>
+                <use>admin</use>
+                <args>
+                    <module>Codnitive_FastImEx</module>
+                    <frontName>fastimex</frontName>
+                </args>
+            </fastimex>
+        </routers>
+    </admin>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <fastimex>
+                    <file>codnitive/fastimex.xml</file>
+                </fastimex>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Codnitive_FastImEx>
+                    <files>
+                        <default>Codnitive_FastImEx.csv</default>
+                    </files>
+                </Codnitive_FastImEx>
+            </modules>
+        </translate>
+    </adminhtml>
+
+    <frontend>
+        <layout>
+            <updates>
+                <fastimex>
+                    <file>codnitive/fastimex.xml</file>
+                </fastimex>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Codnitive_FastImEx>
+                    <files>
+                        <default>Codnitive_FastImEx.csv</default>
+                    </files>
+                </Codnitive_FastImEx>
+            </modules>
+        </translate>
+    </frontend>
+
+    <default>
+        <codnitivedeveloper>
+            <fastimex>
+                <active>0</active>
+                <remote_db>0</remote_db>
+                <load_data_infile>0</load_data_infile>
+                
+                <index_everything>0</index_everything>
+                <bunch_num>1000</bunch_num>
+                <enable_stock_index>0</enable_stock_index>
+                <enable_price_index>0</enable_price_index>
+                <enable_category_relation_index>0</enable_category_relation_index>
+                <enable_attribute_index>0</enable_attribute_index>
+                <enable_search_index>0</enable_search_index>
+                <enable_rewrite_index>0</enable_rewrite_index>
+                <enable_product_index>0</enable_product_index>
+                
+                <chkfrq>518400</chkfrq>
+                <frtrn>1</frtrn>
+            </fastimex>
+        </codnitivedeveloper>
+    </default>
+</config>
